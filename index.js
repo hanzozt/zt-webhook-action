@@ -1,14 +1,14 @@
 const fs     = require('fs');
-const ziti   = require('@hanzozt/ziti-sdk-nodejs');
+const zt   = require('@hanzozt/zt-sdk-nodejs');
 const core   = require('@actions/core');
 const github = require('@actions/github');
 const crypto = require('crypto');
 
 const UV_EOF = -4095;
 
-const zitiInit = async (zitiFile) => {
+const ztInit = async (ztFile) => {
   return new Promise((resolve, reject) => {
-    var rc = ziti.ziti_init(zitiFile, (init_rc) => {
+    var rc = zt.zt_init(ztFile, (init_rc) => {
         if (init_rc < 0) {
             return reject(`init_rc = ${init_rc}`);
         }
@@ -24,9 +24,9 @@ const zitiInit = async (zitiFile) => {
 // stopped using this function when we switched from a presumed-identical
 // service name == url.hostname to relying upon the SDK to look up the service
 // by URL
-const zitiServiceAvailable = async (service) => {
+const ztServiceAvailable = async (service) => {
   return new Promise((resolve, reject) => {
-    ziti.ziti_service_available(service, (obj) => {
+    zt.zt_service_available(service, (obj) => {
       if (obj.status != 0) {
         console.log(`service ${service} not available, status: ${status}`);
         return reject(status);
@@ -38,10 +38,10 @@ const zitiServiceAvailable = async (service) => {
   });
 }
 
-const zitiHttpRequest = async (url, method, path, headers) => {
+const ztHttpRequest = async (url, method, path, headers) => {
   return new Promise((resolve) => {
     console.log(`path: ${path}`)
-    ziti.httpRequest(
+    zt.httpRequest(
       url, 
       method,
       path,
@@ -78,8 +78,8 @@ const zitiHttpRequest = async (url, method, path, headers) => {
   });
 };
 
-const zitiHttpRequestData = async (req, buf) => {
-  ziti.Ziti_http_request_data(
+const ztHttpRequestData = async (req, buf) => {
+  zt.Ziti_http_request_data(
     req, 
     buf,
     (obj) => { // on_req_body callback
@@ -107,19 +107,19 @@ console.log('Going async...');
 (async function() {
   try {
     const zidFile       = './zid.json'
-    const zitiId        = core.getInput('ziti-id');
+    const ztId        = core.getInput('zt-id');
     const webhookUrl    = core.getInput('webhook-url');
     const webhookSecret = core.getInput('webhook-secret');
     const extraKeyValuePairLines = core.getInput('data');
 
     console.log(`Webhook URL: ${webhookUrl}`);
 
-    // Write zitiId to file
-    fs.writeFileSync(zidFile, zitiId);
+    // Write ztId to file
+    fs.writeFileSync(zidFile, ztId);
 
     // First make sure we can initialize Ziti
-    await zitiInit(zidFile).catch((err) => {
-      core.setFailed(`zitiInit failed: ${err}`);
+    await ztInit(zidFile).catch((err) => {
+      core.setFailed(`ztInit failed: ${err}`);
       process.exit(-1);
     });
     let url = new URL(webhookUrl);
@@ -134,7 +134,7 @@ console.log('Going async...');
     // Sign the payload
     let sig = "sha1=" + crypto.createHmac('sha1', webhookSecret).update(payloadBuf).digest('hex');
     let sig256 = "sha256=" + crypto.createHmac('sha256', webhookSecret).update(payloadBuf).digest('hex');
-    const hookshot = 'ziti-webhook-action';
+    const hookshot = 'zt-webhook-action';
     const { v4: uuidv4 } = require('uuid');
     const guid = uuidv4(); 
 
@@ -149,17 +149,17 @@ console.log('Going async...');
       `X-GitHub-Event: ${github.context.eventName}`
     ];
 
-    let req = await zitiHttpRequest(url.origin, 'POST', url.pathname+url.search, headersArray).catch((err) => {
-      core.setFailed(`zitiHttpRequest failed: ${err}`);
+    let req = await ztHttpRequest(url.origin, 'POST', url.pathname+url.search, headersArray).catch((err) => {
+      core.setFailed(`ztHttpRequest failed: ${err}`);
       process.exit(-1);
     });
 
     // Send the payload
-    results = await zitiHttpRequestData(req, payloadBuf).catch((err) => {
-      core.setFailed(`zitiHttpRequestData failed: ${err}`);
+    results = await ztHttpRequestData(req, payloadBuf).catch((err) => {
+      core.setFailed(`ztHttpRequestData failed: ${err}`);
       process.exit(-1);
     });
-    ziti.Ziti_http_request_end(req);
+    zt.Ziti_http_request_end(req);
 
   } catch (error) {
     core.setFailed(error.message);

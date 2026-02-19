@@ -4,7 +4,7 @@
 /***/ 9289:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-module.exports = require(__nccwpck_require__.ab + "build/Release/node-v83-linux-x64/ziti_sdk_nodejs.node")
+module.exports = require(__nccwpck_require__.ab + "build/Release/node-v83-linux-x64/zt_sdk_nodejs.node")
 
 /***/ }),
 
@@ -6168,7 +6168,7 @@ limitations under the License.
  */
 const close = ( conn,  ) => {
 
-  ziti.ziti_close( conn );
+  zt.zt_close( conn );
 
 };
 
@@ -6240,7 +6240,7 @@ const dial = ( serviceName, isWebSocket, on_connect_cb, on_data_cb ) => {
     data_cb = on_data_cb;
   }
 
-  ziti.ziti_dial(serviceName, isWebSocket, connect_cb, data_cb);
+  zt.zt_dial(serviceName, isWebSocket, connect_cb, data_cb);
 
 };
 
@@ -6269,7 +6269,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const zitiListen = (__nccwpck_require__(4993).listen);
+const ztListen = (__nccwpck_require__(4993).listen);
 const EventEmitter = __nccwpck_require__(2361);
 const { ZitiSocket } = __nccwpck_require__(9778);
 
@@ -6436,7 +6436,7 @@ Server.prototype.listen = function( serviceName, ...args ) {
     let index = _serversIndex++;
     _servers.set(index, this);
 
-    zitiListen( serviceName, index, cb, this.on_listen_client, this.on_listen_client_connect, this.on_listen_client_data );
+    ztListen( serviceName, index, cb, this.on_listen_client, this.on_listen_client_connect, this.on_listen_client_data );
 };
 
 Server.prototype.address = function() {
@@ -6651,7 +6651,7 @@ const httpRequest = ( url, method, path, headers, on_req_cb, on_resp_cb, on_resp
         _on_resp_data_cb = on_resp_data_cb;
     }
 
-    ziti.Ziti_http_request( url, method, path, headers, _on_req_cb, _on_resp_cb, _on_resp_data_cb );
+    zt.Ziti_http_request( url, method, path, headers, _on_req_cb, _on_resp_cb, _on_resp_data_cb );
 
 };
 
@@ -6705,7 +6705,7 @@ const httpRequestData = ( req, buffer, on_req_data_cb ) => {
         _on_req_data_cb = on_req_data_cb;
     }
 
-    ziti.Ziti_http_request_data( req, buffer, _on_req_data_cb );
+    zt.Ziti_http_request_data( req, buffer, _on_req_data_cb );
 };
 
 
@@ -6745,14 +6745,14 @@ const init = ( identityPath ) => {
 
   return new Promise((resolve, reject) => {
 
-      let rc = ziti.ziti_init( identityPath, ( result ) => {
+      let rc = zt.zt_init( identityPath, ( result ) => {
 
           return resolve( result );
         
       });
 
       if (rc < 0) {
-        return reject(`ziti.init() failed with return code ${rc}`);
+        return reject(`zt.init() failed with return code ${rc}`);
       }
       
   });
@@ -6791,7 +6791,7 @@ limitations under the License.
  */
 const listen = ( serviceName, js_arb_data, on_listen, on_listen_client, on_client_connect, on_client_data ) => {
 
-  ziti.ziti_listen( serviceName, js_arb_data, on_listen, on_listen_client, on_client_connect, on_client_data );
+  zt.zt_listen( serviceName, js_arb_data, on_listen, on_listen_client, on_client_connect, on_client_data );
 
 };
 
@@ -6845,7 +6845,7 @@ const serviceAvailable = ( service, sa_cb ) => {
     cb = sa_cb;
   }
 
-  ziti.ziti_service_available( service, cb );
+  zt.zt_service_available( service, cb );
 
 };
 
@@ -6881,7 +6881,7 @@ limitations under the License.
  */
 const setLogLevel = ( lvl ) => {
 
-  ziti.ziti_set_log_level( lvl );
+  zt.zt_set_log_level( lvl );
 
 };
 
@@ -6936,7 +6936,7 @@ const write = ( conn, buf, on_write_cb ) => {
     cb = on_write_cb;
   }
 
-  ziti.ziti_write( conn, buf, cb );
+  zt.zt_write( conn, buf, cb );
 
 };
 
@@ -6966,7 +6966,7 @@ limitations under the License.
 
 const EventEmitter = __nccwpck_require__(2361);
 const stream = __nccwpck_require__(2781);
-const zitiWrite = (__nccwpck_require__(3203).write);
+const ztWrite = (__nccwpck_require__(3203).write);
 
 
 
@@ -7032,7 +7032,7 @@ class ZitiSocket extends EventEmitter {
         }
 
         if (buffer.length > 0) {
-            zitiWrite(this.client, buffer);
+            ztWrite(this.client, buffer);
         }
         if (cb) {
             cb();
@@ -7106,18 +7106,18 @@ if (typeof require.context == 'function') {
 
     const binary = __nccwpck_require__(5128);
     const path = __nccwpck_require__(1017)
-    const binding_path = __nccwpck_require__.ab + "build/Release/node-v83-linux-x64/ziti_sdk_nodejs.node";
+    const binding_path = __nccwpck_require__.ab + "build/Release/node-v83-linux-x64/zt_sdk_nodejs.node";
 
     binding = __nccwpck_require__(9289);
     
 }
 
-ziti = module.exports = exports = binding;
+zt = module.exports = exports = binding;
 
 
 
 /**
- *  Attach the external, app-facing, API to the 'ziti' object
+ *  Attach the external, app-facing, API to the 'zt' object
  */
 exports.close = __nccwpck_require__(1798).close;
 exports.dial = __nccwpck_require__(210).dial;
@@ -26368,7 +26368,7 @@ module.exports = JSON.parse('{"0.1.14":{"node_abi":null,"v8":"1.3"},"0.1.15":{"n
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_from":"@mapbox/node-pre-gyp@^1.0.8","_id":"@mapbox/node-pre-gyp@1.0.10","_inBundle":false,"_integrity":"sha512-4ySo4CjzStuprMwk35H5pPbkymjv1SF3jGLj6rAHp/xT/RF7TL7bd9CTm1xDY49K2qF7jmR/g7k+SkLETP6opA==","_location":"/@mapbox/node-pre-gyp","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"@mapbox/node-pre-gyp@^1.0.8","name":"@mapbox/node-pre-gyp","escapedName":"@mapbox%2fnode-pre-gyp","scope":"@mapbox","rawSpec":"^1.0.8","saveSpec":null,"fetchSpec":"^1.0.8"},"_requiredBy":["/@hanzozt/ziti-sdk-nodejs"],"_resolved":"https://registry.npmjs.org/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.10.tgz","_shasum":"8e6735ccebbb1581e5a7e652244cadc8a844d03c","_spec":"@mapbox/node-pre-gyp@^1.0.8","_where":"/home/kbingham/Sites/netfoundry/github/ziti-webhook-action/node_modules/@hanzozt/ziti-sdk-nodejs","author":{"name":"Dane Springmeyer","email":"dane@mapbox.com"},"bin":{"node-pre-gyp":"bin/node-pre-gyp"},"bugs":{"url":"https://github.com/mapbox/node-pre-gyp/issues"},"bundleDependencies":false,"dependencies":{"detect-libc":"^2.0.0","https-proxy-agent":"^5.0.0","make-dir":"^3.1.0","node-fetch":"^2.6.7","nopt":"^5.0.0","npmlog":"^5.0.1","rimraf":"^3.0.2","semver":"^7.3.5","tar":"^6.1.11"},"deprecated":false,"description":"Node.js native addon binary install tool","devDependencies":{"@mapbox/cloudfriend":"^5.1.0","@mapbox/eslint-config-mapbox":"^3.0.0","aws-sdk":"^2.1087.0","codecov":"^3.8.3","eslint":"^7.32.0","eslint-plugin-node":"^11.1.0","mock-aws-s3":"^4.0.2","nock":"^12.0.3","node-addon-api":"^4.3.0","nyc":"^15.1.0","tape":"^5.5.2","tar-fs":"^2.1.1"},"homepage":"https://github.com/mapbox/node-pre-gyp#readme","keywords":["native","addon","module","c","c++","bindings","binary"],"license":"BSD-3-Clause","main":"./lib/node-pre-gyp.js","name":"@mapbox/node-pre-gyp","nyc":{"all":true,"skip-full":false,"exclude":["test/**"]},"repository":{"type":"git","url":"git://github.com/mapbox/node-pre-gyp.git"},"scripts":{"coverage":"nyc --all --include index.js --include lib/ npm test","fix":"npm run lint -- --fix","lint":"eslint bin/node-pre-gyp lib/*js lib/util/*js test/*js scripts/*js","test":"tape test/*test.js","update-crosswalk":"node scripts/abi_crosswalk.js","upload-coverage":"nyc report --reporter json && codecov --clear --flags=unit --file=./coverage/coverage-final.json"},"version":"1.0.10"}');
+module.exports = JSON.parse('{"_from":"@mapbox/node-pre-gyp@^1.0.8","_id":"@mapbox/node-pre-gyp@1.0.10","_inBundle":false,"_integrity":"sha512-4ySo4CjzStuprMwk35H5pPbkymjv1SF3jGLj6rAHp/xT/RF7TL7bd9CTm1xDY49K2qF7jmR/g7k+SkLETP6opA==","_location":"/@mapbox/node-pre-gyp","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"@mapbox/node-pre-gyp@^1.0.8","name":"@mapbox/node-pre-gyp","escapedName":"@mapbox%2fnode-pre-gyp","scope":"@mapbox","rawSpec":"^1.0.8","saveSpec":null,"fetchSpec":"^1.0.8"},"_requiredBy":["/@hanzozt/zt-sdk-nodejs"],"_resolved":"https://registry.npmjs.org/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.10.tgz","_shasum":"8e6735ccebbb1581e5a7e652244cadc8a844d03c","_spec":"@mapbox/node-pre-gyp@^1.0.8","_where":"/home/kbingham/Sites/netfoundry/github/zt-webhook-action/node_modules/@hanzozt/zt-sdk-nodejs","author":{"name":"Dane Springmeyer","email":"dane@mapbox.com"},"bin":{"node-pre-gyp":"bin/node-pre-gyp"},"bugs":{"url":"https://github.com/mapbox/node-pre-gyp/issues"},"bundleDependencies":false,"dependencies":{"detect-libc":"^2.0.0","https-proxy-agent":"^5.0.0","make-dir":"^3.1.0","node-fetch":"^2.6.7","nopt":"^5.0.0","npmlog":"^5.0.1","rimraf":"^3.0.2","semver":"^7.3.5","tar":"^6.1.11"},"deprecated":false,"description":"Node.js native addon binary install tool","devDependencies":{"@mapbox/cloudfriend":"^5.1.0","@mapbox/eslint-config-mapbox":"^3.0.0","aws-sdk":"^2.1087.0","codecov":"^3.8.3","eslint":"^7.32.0","eslint-plugin-node":"^11.1.0","mock-aws-s3":"^4.0.2","nock":"^12.0.3","node-addon-api":"^4.3.0","nyc":"^15.1.0","tape":"^5.5.2","tar-fs":"^2.1.1"},"homepage":"https://github.com/mapbox/node-pre-gyp#readme","keywords":["native","addon","module","c","c++","bindings","binary"],"license":"BSD-3-Clause","main":"./lib/node-pre-gyp.js","name":"@mapbox/node-pre-gyp","nyc":{"all":true,"skip-full":false,"exclude":["test/**"]},"repository":{"type":"git","url":"git://github.com/mapbox/node-pre-gyp.git"},"scripts":{"coverage":"nyc --all --include index.js --include lib/ npm test","fix":"npm run lint -- --fix","lint":"eslint bin/node-pre-gyp lib/*js lib/util/*js test/*js scripts/*js","test":"tape test/*test.js","update-crosswalk":"node scripts/abi_crosswalk.js","upload-coverage":"nyc report --reporter json && codecov --clear --flags=unit --file=./coverage/coverage-final.json"},"version":"1.0.10"}');
 
 /***/ }),
 
@@ -26422,16 +26422,16 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const fs     = __nccwpck_require__(7147);
-const ziti   = __nccwpck_require__(8161);
+const zt   = __nccwpck_require__(8161);
 const core   = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 const crypto = __nccwpck_require__(6113);
 
 const UV_EOF = -4095;
 
-const zitiInit = async (zitiFile) => {
+const ztInit = async (ztFile) => {
   return new Promise((resolve, reject) => {
-    var rc = ziti.ziti_init(zitiFile, (init_rc) => {
+    var rc = zt.zt_init(ztFile, (init_rc) => {
         if (init_rc < 0) {
             return reject(`init_rc = ${init_rc}`);
         }
@@ -26447,9 +26447,9 @@ const zitiInit = async (zitiFile) => {
 // stopped using this function when we switched from a presumed-identical
 // service name == url.hostname to relying upon the SDK to look up the service
 // by URL
-const zitiServiceAvailable = async (service) => {
+const ztServiceAvailable = async (service) => {
   return new Promise((resolve, reject) => {
-    ziti.ziti_service_available(service, (obj) => {
+    zt.zt_service_available(service, (obj) => {
       if (obj.status != 0) {
         console.log(`service ${service} not available, status: ${status}`);
         return reject(status);
@@ -26461,10 +26461,10 @@ const zitiServiceAvailable = async (service) => {
   });
 }
 
-const zitiHttpRequest = async (url, method, path, headers) => {
+const ztHttpRequest = async (url, method, path, headers) => {
   return new Promise((resolve) => {
     console.log(`path: ${path}`)
-    ziti.httpRequest(
+    zt.httpRequest(
       url, 
       method,
       path,
@@ -26501,8 +26501,8 @@ const zitiHttpRequest = async (url, method, path, headers) => {
   });
 };
 
-const zitiHttpRequestData = async (req, buf) => {
-  ziti.Ziti_http_request_data(
+const ztHttpRequestData = async (req, buf) => {
+  zt.Ziti_http_request_data(
     req, 
     buf,
     (obj) => { // on_req_body callback
@@ -26530,19 +26530,19 @@ console.log('Going async...');
 (async function() {
   try {
     const zidFile       = './zid.json'
-    const zitiId        = core.getInput('ziti-id');
+    const ztId        = core.getInput('zt-id');
     const webhookUrl    = core.getInput('webhook-url');
     const webhookSecret = core.getInput('webhook-secret');
     const extraKeyValuePairLines = core.getInput('data');
 
     console.log(`Webhook URL: ${webhookUrl}`);
 
-    // Write zitiId to file
-    fs.writeFileSync(zidFile, zitiId);
+    // Write ztId to file
+    fs.writeFileSync(zidFile, ztId);
 
     // First make sure we can initialize Ziti
-    await zitiInit(zidFile).catch((err) => {
-      core.setFailed(`zitiInit failed: ${err}`);
+    await ztInit(zidFile).catch((err) => {
+      core.setFailed(`ztInit failed: ${err}`);
       process.exit(-1);
     });
     let url = new URL(webhookUrl);
@@ -26557,7 +26557,7 @@ console.log('Going async...');
     // Sign the payload
     let sig = "sha1=" + crypto.createHmac('sha1', webhookSecret).update(payloadBuf).digest('hex');
     let sig256 = "sha256=" + crypto.createHmac('sha256', webhookSecret).update(payloadBuf).digest('hex');
-    const hookshot = 'ziti-webhook-action';
+    const hookshot = 'zt-webhook-action';
     const { v4: uuidv4 } = __nccwpck_require__(5840);
     const guid = uuidv4(); 
 
@@ -26572,17 +26572,17 @@ console.log('Going async...');
       `X-GitHub-Event: ${github.context.eventName}`
     ];
 
-    let req = await zitiHttpRequest(url.origin, 'POST', url.pathname+url.search, headersArray).catch((err) => {
-      core.setFailed(`zitiHttpRequest failed: ${err}`);
+    let req = await ztHttpRequest(url.origin, 'POST', url.pathname+url.search, headersArray).catch((err) => {
+      core.setFailed(`ztHttpRequest failed: ${err}`);
       process.exit(-1);
     });
 
     // Send the payload
-    results = await zitiHttpRequestData(req, payloadBuf).catch((err) => {
-      core.setFailed(`zitiHttpRequestData failed: ${err}`);
+    results = await ztHttpRequestData(req, payloadBuf).catch((err) => {
+      core.setFailed(`ztHttpRequestData failed: ${err}`);
       process.exit(-1);
     });
-    ziti.Ziti_http_request_end(req);
+    zt.Ziti_http_request_end(req);
 
   } catch (error) {
     core.setFailed(error.message);

@@ -1,5 +1,5 @@
 {
-  "name": "ziti-webhook-action",
+  "name": "zt-webhook-action",
   "version": "0.2.1",
   "description": "POST a Webhook over a Ziti network",
   "main": "dist/index.js",
@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hanzozt/ziti-webhook-action.git"
+    "url": "git+https://github.com/hanzozt/zt-webhook-action.git"
   },
   "keywords": [
     "actions",
-    "ziti",
+    "zt",
     "webhook"
   ],
   "author": {
@@ -22,13 +22,13 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/hanzozt/ziti-webhook-action/issues"
+    "url": "https://github.com/hanzozt/zt-webhook-action/issues"
   },
-  "homepage": "https://github.com/hanzozt/ziti-webhook-action#readme",
+  "homepage": "https://github.com/hanzozt/zt-webhook-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "@hanzozt/ziti-sdk-nodejs": "^0.13.2",
+    "@hanzozt/zt-sdk-nodejs": "^0.13.2",
     "@vercel/ncc": "^0.33.4",
     "uuid": "^8.3.2"
   }

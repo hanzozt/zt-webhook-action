@@ -4,7 +4,7 @@ branding:
   icon: 'zap'  
   color: 'red'
 inputs:
-  ziti-id:
+  zt-id:
     description: 'Identity JSON for an enrolled Ziti endpoint'
     required: true
   webhook-url:

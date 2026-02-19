@@ -1,4 +1,4 @@
-name: mattermost-ziti-webhook
+name: mattermost-zt-webhook
 on: 
   create:
   delete:
@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  mattermost-ziti-webhook:
+  mattermost-zt-webhook:
     runs-on: ubuntu-latest
     name: POST Webhook
     steps:
@@ -23,6 +23,6 @@ jobs:
         fetch-depth: 0
     - uses: ./  # uses self to surface any issues 
       with:
-        ziti-id: ${{ secrets.ZITI_MATTERMOST_IDENTITY }}
+        zt-id: ${{ secrets.ZITI_MATTERMOST_IDENTITY }}
         webhook-url: ${{ secrets.ZITI_MATTERMOST_WEBHOOK_URL }}
         webhook-secret: ${{ secrets.ZITI_MATTERMOSTI_WEBHOOK_SECRET }}

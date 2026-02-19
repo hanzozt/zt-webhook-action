@@ -1,6 +1,6 @@
 # Ziti Webhook Action
 
-This GitHub workflow action uses [Ziti NodeJS SDK](https://github.com/hanzozt/ziti-sdk-nodejs) to post an event's `payload` in JSON format over a `Ziti` connection.  
+This GitHub workflow action uses [Ziti NodeJS SDK](https://github.com/hanzozt/zt-sdk-nodejs) to post an event's `payload` in JSON format over a `Ziti` connection.  
 
 ## MacOS Compatibility
 
@@ -9,23 +9,23 @@ If you have a MacOS job you may wish to use `@v1` ref which works with the `maco
 ## Usage
 
 ```yml
-name: ziti-webhook-action
+name: zt-webhook-action
 on: [ push ]
 
 jobs:
-  ziti-action:
+  zt-action:
     runs-on: ubuntu-latest
     name: Ziti Webhook Action
     steps:
-    - uses: hanzozt/ziti-webhook-action@v2
+    - uses: hanzozt/zt-webhook-action@v2
       with:
         # Identity JSON containing key to access a Ziti network
-        ziti-id: ${{ secrets.ZITI_WEBHOOK_ACTION_ID }}
+        zt-id: ${{ secrets.ZITI_WEBHOOK_ACTION_ID }}
 
         # URL to post event payload.  Note that the Ziti service
         # name must match the hostname of the URL (e.g.
-        # "someapp.ziti")
-        webhook-url: https://someapp.ziti/plugins/github/webhook
+        # "someapp.zt")
+        webhook-url: https://someapp.zt/plugins/github/webhook
 
         # Used to create a hash signature of the payload
         # to be set in the X-Hub-Signature HTTP header
@@ -34,26 +34,26 @@ jobs:
 
 ### Ziti Identity
 
-The `ziti-id` input is the JSON formatted string of an identity enrolled  in a `Ziti` network.
+The `zt-id` input is the JSON formatted string of an identity enrolled  in a `Ziti` network.
 
-The identity JSON is created by running the `ziti edge enroll ./ziti-id.jwt` command.  The one-time token file e.g. "ziti-id.jwt" is typically downloaded from the web console or output when the identity is created.
+The identity JSON is created by running the `zt edge enroll ./zt-id.jwt` command.  The one-time token file e.g. "zt-id.jwt" is typically downloaded from the web console or output when the identity is created.
 
 ```bash
 # example of saving the token file when the identity is created
-ziti edge create identity device my-ziti-identity --jwt-output-file ./ziti-id.jwt
+zt edge create identity device my-zt-identity --jwt-output-file ./zt-id.jwt
 ```
 
-The `ziti` executable can be obtained [here](https://github.com/hanzozt/ziti/releases/latest).
+The `zt` executable can be obtained [here](https://github.com/hanzozt/zt/releases/latest).
 
-Alternatively, you may run the `ziti` executable with Docker.
+Alternatively, you may run the `zt` executable with Docker.
 
 ```bash
-docker run --rm --volume ${PWD}:/mnt hanzozt/quickstart /hanzozt/ziti-bin/ziti edge enroll /mnt/ziti-id.jwt
+docker run --rm --volume ${PWD}:/mnt hanzozt/quickstart /hanzozt/zt-bin/zt edge enroll /mnt/zt-id.jwt
 ```
 
 ### WebHook Secret
 
-This is a random secret string that is used to provide a data integrity hash the receiver may validate. Validation logic that works with [GitHub webhooks](https://docs.github.com/en/developers/webhooks-and-events/webhooks/securing-your-webhooks) also works with `ziti-webhook-action`. From that reference:
+This is a random secret string that is used to provide a data integrity hash the receiver may validate. Validation logic that works with [GitHub webhooks](https://docs.github.com/en/developers/webhooks-and-events/webhooks/securing-your-webhooks) also works with `zt-webhook-action`. From that reference:
 
 ```bash
 ruby -rsecurerandom -e 'puts SecureRandom.hex(20)'
@@ -84,7 +84,7 @@ This example results in a top-level dict in the webhook payload.
 
 ```bash
 # One way to pass a raw field is to use the GitHub CLI which is pre-installed in all hosted runner VMs
-gh workflow --repo myorg/myrepo run --ref $(git rev-parse --abbrev-ref HEAD) --raw-field my_release_version=1.2.3 send-ziti-webhook.yml
+gh workflow --repo myorg/myrepo run --ref $(git rev-parse --abbrev-ref HEAD) --raw-field my_release_version=1.2.3 send-zt-webhook.yml
 ```
 
 ```yaml
@@ -97,8 +97,8 @@ gh workflow --repo myorg/myrepo run --ref $(git rev-parse --abbrev-ref HEAD) --r
 
 ```yaml
         with:
-          ziti-id: ${{ secrets.ZITI_WEBHOOK_IDENTITY }}
-          webhook-url: https://someapp.ziti/plugins/github/webhook
+          zt-id: ${{ secrets.ZITI_WEBHOOK_IDENTITY }}
+          webhook-url: https://someapp.zt/plugins/github/webhook
           webhook-secret: ${{ secrets.ZITI_WEBHOOK_SECRET }}
           data: |
             my_release_version=1.2.3
