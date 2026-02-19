@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openziti/ziti-webhook-action.git"
+    "url": "git+https://github.com/hanzozt/ziti-webhook-action.git"
   },
   "keywords": [
     "actions",
@@ -22,13 +22,13 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/openziti/ziti-webhook-action/issues"
+    "url": "https://github.com/hanzozt/ziti-webhook-action/issues"
   },
-  "homepage": "https://github.com/openziti/ziti-webhook-action#readme",
+  "homepage": "https://github.com/hanzozt/ziti-webhook-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "@openziti/ziti-sdk-nodejs": "^0.13.2",
+    "@hanzozt/ziti-sdk-nodejs": "^0.13.2",
     "@vercel/ncc": "^0.33.4",
     "uuid": "^8.3.2"
   }

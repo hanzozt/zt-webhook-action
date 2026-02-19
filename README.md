@@ -1,6 +1,6 @@
 # Ziti Webhook Action
 
-This GitHub workflow action uses [Ziti NodeJS SDK](https://github.com/openziti/ziti-sdk-nodejs) to post an event's `payload` in JSON format over a `Ziti` connection.  
+This GitHub workflow action uses [Ziti NodeJS SDK](https://github.com/hanzozt/ziti-sdk-nodejs) to post an event's `payload` in JSON format over a `Ziti` connection.  
 
 ## MacOS Compatibility
 
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Ziti Webhook Action
     steps:
-    - uses: openziti/ziti-webhook-action@v2
+    - uses: hanzozt/ziti-webhook-action@v2
       with:
         # Identity JSON containing key to access a Ziti network
         ziti-id: ${{ secrets.ZITI_WEBHOOK_ACTION_ID }}
@@ -43,12 +43,12 @@ The identity JSON is created by running the `ziti edge enroll ./ziti-id.jwt` com
 ziti edge create identity device my-ziti-identity --jwt-output-file ./ziti-id.jwt
 ```
 
-The `ziti` executable can be obtained [here](https://github.com/openziti/ziti/releases/latest).
+The `ziti` executable can be obtained [here](https://github.com/hanzozt/ziti/releases/latest).
 
 Alternatively, you may run the `ziti` executable with Docker.
 
 ```bash
-docker run --rm --volume ${PWD}:/mnt openziti/quickstart /openziti/ziti-bin/ziti edge enroll /mnt/ziti-id.jwt
+docker run --rm --volume ${PWD}:/mnt hanzozt/quickstart /hanzozt/ziti-bin/ziti edge enroll /mnt/ziti-id.jwt
 ```
 
 ### WebHook Secret
